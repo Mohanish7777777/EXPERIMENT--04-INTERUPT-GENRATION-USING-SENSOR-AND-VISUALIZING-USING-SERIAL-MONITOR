@@ -1,8 +1,8 @@
-###  DATE: 
+###  DATE: 09.04.2024
 
-###  NAME: 
-###  ROLL NO :
-###  DEPARTMENT: 
+###  NAME: Mohanish K
+###  ROLL NO : 212222100028
+###  DEPARTMENT: CSE(CYS)
 
 
 # EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR
@@ -118,15 +118,65 @@ The diagram below shows how the GPIO pins are connected to the 16 interrupt line
   
 
 ## STM 32 CUBE PROGRAM :
+```python
+#include "main.h"
+#include "stdio.h"
+#if defined(__ICCARM__) || defined(__ARMCC_VERSION)
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#elif defined(__GNUC__)
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#endif
 
+UART_HandleTypeDef huart2;
+
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_USART2_UART_Init(void);
+
+int main(void)
+{
+  HAL_Init();
+
+  SystemClock_Config();
+
+  MX_GPIO_Init();
+  MX_USART2_UART_Init();
+  
+  while (1)
+  {
+    
+  }
+}
+
+void HAL_GPIO_EXIT_Callback(uint16_t GPIO_Pin)
+{
+	if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_4)==1)
+	{
+		printf("INTERPUT GENERATED \n");
+	}
+}
+
+PUTCHAR_PROTOTYPE
+{
+	HAL_UART_Transmit(&huart2,(uint8_t *)&ch,1,0xFFFF);
+	return ch;
+}
+```
 
 
 ## Output screen shots of serial port utility   :
- 
+ ![319048820-07d57ae6-5760-48c1-b1ee-cafe6517df41](https://github.com/Alfredsec/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/120621608/b4051409-32ab-4092-af10-4d3155183eea)
+
  
  ## Circuit board :
  
- 
+ ### WITH OBSTACLE:
+![307219695-902d26d0-d205-4e32-ad7c-c3189e7380b2](https://github.com/Alfredsec/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/120621608/1f939996-d19d-4d07-85dd-008f3287ba77)
+
+
+ ### WITHOUT OBSTACLE:
+ ![307219724-bfc734bc-a0fa-4e85-93d9-269a3b1cd87c](https://github.com/Alfredsec/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/120621608/3234ff99-aeef-4e70-a56e-d4097e43fb71)
+
  
 ## Result :
 Interfacing a  IR SENSOR and interrupt is generated using external interrupt mode , visualized on serial port 
